@@ -10,6 +10,7 @@ import (
 
 	"api-indo-golang/database"
 	"api-indo-golang/handlers"
+	"api-indo-golang/seed"
 )
 
 func main() {
@@ -18,6 +19,11 @@ func main() {
 	}
 
 	database.Connect()
+
+	err := seed.ImportDistrictsFromCSV()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	port := os.Getenv("APP_PORT")
 	if port == "" {
